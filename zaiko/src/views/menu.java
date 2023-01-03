@@ -1,8 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package views;
+
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -40,6 +39,11 @@ public class menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(700, 500));
+        addWindowStateListener(new java.awt.event.WindowStateListener() {
+            public void windowStateChanged(java.awt.event.WindowEvent evt) {
+                formWindowStateChanged(evt);
+            }
+        });
 
         menu.setBackground(new java.awt.Color(38, 121, 219));
 
@@ -80,6 +84,11 @@ public class menu extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Protector");
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel2MousePressed(evt);
+            }
+        });
 
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -109,6 +118,12 @@ public class menu extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addContainerGap())
         );
+
+        content.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                contentComponentResized(evt);
+            }
+        });
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
@@ -154,6 +169,43 @@ public class menu extends javax.swing.JFrame {
         panelAdd.setVisible(panelAddVisible);
     }//GEN-LAST:event_addMousePressed
 
+    private void contentComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_contentComponentResized
+        resizeContent();
+    }//GEN-LAST:event_contentComponentResized
+
+    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
+        resizeContent();
+    }//GEN-LAST:event_formWindowStateChanged
+
+    private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+        cases w = new cases();
+        changeContent(w,w.brand);
+    }//GEN-LAST:event_jLabel2MousePressed
+    
+    public static void changeContent(JPanel newContent, JTextField focus){
+        newContent.setSize(content.getSize().width,content.getSize().height);
+             
+        content.removeAll();
+        content.add(newContent);
+        content.repaint();
+        content.revalidate();
+        
+        try{
+            focus.requestFocusInWindow();
+        }catch(Exception e){
+            System.out.println("No se agrego un JTextField al cual enfocar");
+        }
+    }
+    
+    public void resizeContent(){
+        try{
+            content.getComponent(0).setSize(content.getSize().width,content.getSize().height);
+            content.revalidate();
+        }catch(Exception e){
+            System.out.println("No se encontro un JPanel cargado: " + e);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -191,7 +243,7 @@ public class menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel add;
-    private javax.swing.JPanel content;
+    private static javax.swing.JPanel content;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
