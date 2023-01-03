@@ -1,11 +1,12 @@
 package views;
 
 import javax.swing.JOptionPane;
-import database.article;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import database.articleDB;
+import database.casesDB;
 /**
  *
  * @author jorge
@@ -41,6 +42,7 @@ public class cases extends javax.swing.JPanel {
         save = new javax.swing.JButton();
         titleCode = new javax.swing.JLabel();
         code = new javax.swing.JTextField();
+        cleanBrand = new javax.swing.JLabel();
 
         title.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -86,13 +88,21 @@ public class cases extends javax.swing.JPanel {
             }
         });
 
+        cleanBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clean16x.png"))); // NOI18N
+        cleanBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cleanBrand.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cleanBrandMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(93, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -119,7 +129,9 @@ public class cases extends javax.swing.JPanel {
                             .addComponent(titleType, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cleanBrand)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,9 +147,11 @@ public class cases extends javax.swing.JPanel {
                     .addComponent(titleType)
                     .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(brand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(titleBrand))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cleanBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(brand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(titleBrand)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(model, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,13 +177,13 @@ public class cases extends javax.swing.JPanel {
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         if(validateData()){
             try {
-                article.add(code.getText(), Integer.parseInt(lot.getValue().toString()));
+                articleDB.add(code.getText(), Integer.parseInt(lot.getValue().toString()));
+                casesDB.add(type.getSelectedItem().toString(), brand.getText(), model.getText());
             } catch (SQLException ex) {
                 Logger.getLogger(cases.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             code.setText("");
-            brand.setText("");
             model.setText("");
             lot.setValue(1);
             code.requestFocusInWindow();            
@@ -181,6 +195,10 @@ public class cases extends javax.swing.JPanel {
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cancelActionPerformed
+
+    private void cleanBrandMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cleanBrandMousePressed
+        brand.setText("");
+    }//GEN-LAST:event_cleanBrandMousePressed
 
     private boolean validateData(){
         boolean ok;
@@ -197,6 +215,7 @@ public class cases extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField brand;
     private javax.swing.JButton cancel;
+    private javax.swing.JLabel cleanBrand;
     public javax.swing.JTextField code;
     private javax.swing.JSpinner lot;
     private javax.swing.JTextField model;

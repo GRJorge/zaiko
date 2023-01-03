@@ -9,7 +9,7 @@ import java.sql.SQLException;
  *
  * @author jorge
  */
-public class article {
+public class articleDB {
     static Connection con = connection.connection();
     static Statement stmt;
     
