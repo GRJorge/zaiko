@@ -1,10 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package views;
 
 import javax.swing.JOptionPane;
+import database.article;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -162,12 +162,17 @@ public class cases extends javax.swing.JPanel {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         if(validateData()){
-            System.out.println("Todo correcto");
+            try {
+                article.add(code.getText(), Integer.parseInt(lot.getValue().toString()));
+            } catch (SQLException ex) {
+                Logger.getLogger(cases.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             code.setText("");
             brand.setText("");
             model.setText("");
             lot.setValue(1);
-            code.requestFocusInWindow();
+            code.requestFocusInWindow();            
         }else{
             JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
         }
