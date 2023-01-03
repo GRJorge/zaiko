@@ -32,9 +32,9 @@ public class menu extends javax.swing.JFrame {
         menu = new javax.swing.JPanel();
         add = new javax.swing.JLabel();
         panelAdd = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        cases = new javax.swing.JLabel();
+        phone = new javax.swing.JLabel();
+        props = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,25 +75,25 @@ public class menu extends javax.swing.JFrame {
 
         panelAdd.setBackground(new java.awt.Color(38, 121, 219));
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Telefono");
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Protector");
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        cases.setForeground(new java.awt.Color(0, 0, 0));
+        cases.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cases.setText("Protector");
+        cases.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cases.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel2MousePressed(evt);
+                casesMousePressed(evt);
             }
         });
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Accesorio");
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        phone.setForeground(new java.awt.Color(0, 0, 0));
+        phone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        phone.setText("Telefono");
+        phone.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        props.setForeground(new java.awt.Color(0, 0, 0));
+        props.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        props.setText("Accesorio");
+        props.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout panelAddLayout = new javax.swing.GroupLayout(panelAdd);
         panelAdd.setLayout(panelAddLayout);
@@ -101,11 +101,11 @@ public class menu extends javax.swing.JFrame {
             panelAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAddLayout.createSequentialGroup()
                 .addContainerGap(10, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cases, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(props, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         panelAddLayout.setVerticalGroup(
@@ -113,9 +113,9 @@ public class menu extends javax.swing.JFrame {
             .addGroup(panelAddLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(phone, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                    .addComponent(cases)
+                    .addComponent(props))
                 .addContainerGap())
         );
 
@@ -162,11 +162,11 @@ public class menu extends javax.swing.JFrame {
 
     private void addMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMousePressed
         if(panelAddVisible){
-            panelAddVisible = false;
+            hideAddPanel(false);
         }else{
-            panelAddVisible = true;
+            hideAddPanel(true);
         }
-        panelAdd.setVisible(panelAddVisible);
+        
     }//GEN-LAST:event_addMousePressed
 
     private void contentComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_contentComponentResized
@@ -177,10 +177,11 @@ public class menu extends javax.swing.JFrame {
         resizeContent();
     }//GEN-LAST:event_formWindowStateChanged
 
-    private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+    private void casesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_casesMousePressed
+        hideAddPanel(false);
         cases w = new cases();
         changeContent(w,w.brand);
-    }//GEN-LAST:event_jLabel2MousePressed
+    }//GEN-LAST:event_casesMousePressed
     
     public static void changeContent(JPanel newContent, JTextField focus){
         newContent.setSize(content.getSize().width,content.getSize().height);
@@ -204,6 +205,11 @@ public class menu extends javax.swing.JFrame {
         }catch(Exception e){
             System.out.println("No se encontro un JPanel cargado: " + e);
         }
+    }
+    
+    private void hideAddPanel(boolean visible){
+        panelAddVisible = visible;
+        panelAdd.setVisible(panelAddVisible);
     }
     
     /**
@@ -243,11 +249,11 @@ public class menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel add;
+    private javax.swing.JLabel cases;
     private static javax.swing.JPanel content;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel menu;
     private javax.swing.JPanel panelAdd;
+    private javax.swing.JLabel phone;
+    private javax.swing.JLabel props;
     // End of variables declaration//GEN-END:variables
 }
