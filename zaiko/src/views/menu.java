@@ -180,7 +180,7 @@ public class menu extends javax.swing.JFrame {
     private void casesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_casesMousePressed
         hideAddPanel(false);
         cases w = new cases();
-        changeContent(w,w.brand);
+        changeContent(w,w.code);
     }//GEN-LAST:event_casesMousePressed
     
     public static void changeContent(JPanel newContent, JTextField focus){

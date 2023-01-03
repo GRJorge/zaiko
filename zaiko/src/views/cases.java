@@ -4,6 +4,8 @@
  */
 package views;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jorge
@@ -37,6 +39,8 @@ public class cases extends javax.swing.JPanel {
         lot = new javax.swing.JSpinner();
         cancel = new javax.swing.JButton();
         save = new javax.swing.JButton();
+        titleCode = new javax.swing.JLabel();
+        code = new javax.swing.JTextField();
 
         title.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -56,9 +60,31 @@ public class cases extends javax.swing.JPanel {
         titleLot.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleLot.setText("Cantidad:");
 
+        lot.setToolTipText("");
+        lot.setValue(1);
+
         cancel.setText("Cancelar");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
 
         save.setText("Guardar");
+        save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveActionPerformed(evt);
+            }
+        });
+
+        titleCode.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        titleCode.setText("Codigo:");
+
+        code.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                codeKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -68,7 +94,15 @@ public class cases extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(titleCode, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(code))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(titleLot, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -84,11 +118,7 @@ public class cases extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(titleType, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -96,6 +126,10 @@ public class cases extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titleCode)
+                    .addComponent(code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(titleType)
@@ -120,15 +154,51 @@ public class cases extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codeKeyPressed
+        if(evt.getKeyCode() == 10){
+            type.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_codeKeyPressed
 
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+        if(validateData()){
+            System.out.println("Todo correcto");
+            code.setText("");
+            brand.setText("");
+            model.setText("");
+            lot.setValue(1);
+            code.requestFocusInWindow();
+        }else{
+            JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_saveActionPerformed
+
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelActionPerformed
+
+    private boolean validateData(){
+        boolean ok;
+        
+        ok = !(code.getText().isBlank() || brand.getText().isBlank() || model.getText().isBlank());
+        
+        if(Integer.parseInt(lot.getValue().toString()) < 0){
+            ok = false;
+        }
+        
+        return ok;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JTextField brand;
+    private javax.swing.JTextField brand;
     private javax.swing.JButton cancel;
+    public javax.swing.JTextField code;
     private javax.swing.JSpinner lot;
     private javax.swing.JTextField model;
     private javax.swing.JButton save;
     private javax.swing.JLabel title;
     private javax.swing.JLabel titleBrand;
+    private javax.swing.JLabel titleCode;
     private javax.swing.JLabel titleLot;
     private javax.swing.JLabel titleModel;
     private javax.swing.JLabel titleType;
