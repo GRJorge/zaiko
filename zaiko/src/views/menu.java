@@ -33,8 +33,9 @@ public class menu extends javax.swing.JFrame {
         add = new javax.swing.JLabel();
         panelAdd = new javax.swing.JPanel();
         cases = new javax.swing.JLabel();
-        phone = new javax.swing.JLabel();
         props = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        phone = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,7 +76,6 @@ public class menu extends javax.swing.JFrame {
 
         panelAdd.setBackground(new java.awt.Color(38, 121, 219));
 
-        cases.setForeground(new java.awt.Color(0, 0, 0));
         cases.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cases.setText("Protector");
         cases.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -85,7 +85,18 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
-        phone.setForeground(new java.awt.Color(0, 0, 0));
+        props.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        props.setText("Accesorio");
+        props.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        props.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                propsMousePressed(evt);
+            }
+        });
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Mica");
+
         phone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         phone.setText("Telefono");
         phone.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -95,11 +106,6 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
-        props.setForeground(new java.awt.Color(0, 0, 0));
-        props.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        props.setText("Accesorio");
-        props.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
         javax.swing.GroupLayout panelAddLayout = new javax.swing.GroupLayout(panelAdd);
         panelAdd.setLayout(panelAddLayout);
         panelAddLayout.setHorizontalGroup(
@@ -108,9 +114,11 @@ public class menu extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(cases, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(props, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         panelAddLayout.setVerticalGroup(
@@ -118,9 +126,10 @@ public class menu extends javax.swing.JFrame {
             .addGroup(panelAddLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(phone, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
                     .addComponent(cases)
-                    .addComponent(props))
+                    .addComponent(props)
+                    .addComponent(jLabel1)
+                    .addComponent(phone, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -134,11 +143,11 @@ public class menu extends javax.swing.JFrame {
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 408, Short.MAX_VALUE)
+            .addGap(0, 406, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -147,7 +156,7 @@ public class menu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -193,6 +202,12 @@ public class menu extends javax.swing.JFrame {
         phone w = new phone();
         changeContent(w,w.code);
     }//GEN-LAST:event_phoneMousePressed
+
+    private void propsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_propsMousePressed
+        hideAddPanel(false);
+        prop w = new prop();
+        changeContent(w,w.code);
+    }//GEN-LAST:event_propsMousePressed
     
     public static void changeContent(JPanel newContent, JTextField focus){
         newContent.setSize(content.getSize().width,content.getSize().height);
@@ -262,6 +277,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel add;
     private javax.swing.JLabel cases;
     private static javax.swing.JPanel content;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel menu;
     private javax.swing.JPanel panelAdd;
     private javax.swing.JLabel phone;

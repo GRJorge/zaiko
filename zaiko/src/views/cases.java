@@ -198,6 +198,7 @@ public class cases extends javax.swing.JPanel {
 
     private void cleanBrandMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cleanBrandMousePressed
         brand.setText("");
+        brand.requestFocusInWindow();
     }//GEN-LAST:event_cleanBrandMousePressed
 
     private boolean validateData(){
