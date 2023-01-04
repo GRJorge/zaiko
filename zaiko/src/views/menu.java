@@ -34,7 +34,7 @@ public class menu extends javax.swing.JFrame {
         panelAdd = new javax.swing.JPanel();
         cases = new javax.swing.JLabel();
         props = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        mica = new javax.swing.JLabel();
         phone = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
 
@@ -48,8 +48,9 @@ public class menu extends javax.swing.JFrame {
 
         menu.setBackground(new java.awt.Color(38, 121, 219));
 
+        add.setFont(new java.awt.Font("Roboto", 0, 36)); // NOI18N
         add.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/plus.png"))); // NOI18N
+        add.setText("+");
         add.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -62,15 +63,14 @@ public class menu extends javax.swing.JFrame {
         menuLayout.setHorizontalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuLayout.createSequentialGroup()
-                .addContainerGap(334, Short.MAX_VALUE)
+                .addContainerGap(340, Short.MAX_VALUE)
                 .addComponent(add)
-                .addContainerGap(334, Short.MAX_VALUE))
+                .addContainerGap(340, Short.MAX_VALUE))
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(add, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 42, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -94,8 +94,14 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Mica");
+        mica.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mica.setText("Mica");
+        mica.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mica.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                micaMousePressed(evt);
+            }
+        });
 
         phone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         phone.setText("Telefono");
@@ -111,15 +117,15 @@ public class menu extends javax.swing.JFrame {
         panelAddLayout.setHorizontalGroup(
             panelAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAddLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cases, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mica, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(props, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelAddLayout.setVerticalGroup(
             panelAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,7 +134,7 @@ public class menu extends javax.swing.JFrame {
                 .addGroup(panelAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cases)
                     .addComponent(props)
-                    .addComponent(jLabel1)
+                    .addComponent(mica)
                     .addComponent(phone, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -156,10 +162,7 @@ public class menu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(panelAdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,15 +176,6 @@ public class menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void addMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMousePressed
-        if(panelAddVisible){
-            hideAddPanel(false);
-        }else{
-            hideAddPanel(true);
-        }
-        
-    }//GEN-LAST:event_addMousePressed
 
     private void contentComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_contentComponentResized
         resizeContent();
@@ -208,6 +202,21 @@ public class menu extends javax.swing.JFrame {
         prop w = new prop();
         changeContent(w,w.code);
     }//GEN-LAST:event_propsMousePressed
+
+    private void addMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMousePressed
+        if(panelAddVisible){
+            hideAddPanel(false);
+        }else{
+            hideAddPanel(true);
+        }
+
+    }//GEN-LAST:event_addMousePressed
+
+    private void micaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_micaMousePressed
+        hideAddPanel(false);
+        mica w = new mica();
+        changeContent(w,w.code);
+    }//GEN-LAST:event_micaMousePressed
     
     public static void changeContent(JPanel newContent, JTextField focus){
         newContent.setSize(content.getSize().width,content.getSize().height);
@@ -277,8 +286,8 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel add;
     private javax.swing.JLabel cases;
     private static javax.swing.JPanel content;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel menu;
+    private javax.swing.JLabel mica;
     private javax.swing.JPanel panelAdd;
     private javax.swing.JLabel phone;
     private javax.swing.JLabel props;
