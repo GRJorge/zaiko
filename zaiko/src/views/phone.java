@@ -1,9 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package views;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+import database.articleDB;
+import database.phoneDB;
 /**
  *
  * @author jorge
@@ -48,11 +51,22 @@ public class phone extends javax.swing.JPanel {
         titleCode.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleCode.setText("Codigo:");
 
+        code.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                codeKeyPressed(evt);
+            }
+        });
+
         titleBrand.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleBrand.setText("Marca:");
 
         cleanBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clean16x.png"))); // NOI18N
         cleanBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cleanBrand.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cleanBrandMousePressed(evt);
+            }
+        });
 
         titleModel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleModel.setText("Modelo:");
@@ -70,8 +84,18 @@ public class phone extends javax.swing.JPanel {
         lot.setValue(1);
 
         cancel.setText("Cancelar");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
 
         save.setText("Guardar");
+        save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -128,7 +152,7 @@ public class phone extends javax.swing.JPanel {
                             .addComponent(brand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(titleBrand)))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
                         .addComponent(cleanBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -150,6 +174,51 @@ public class phone extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codeKeyPressed
+        if(evt.getKeyCode() == 10){
+            brand.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_codeKeyPressed
+
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+        if(validateData()){
+            try {
+                articleDB.add(code.getText(), Integer.parseInt(lot.getValue().toString()));
+                phoneDB.add(brand.getText(), model.getText(), capacity.getSelectedItem().toString());
+            } catch (SQLException ex) {
+                Logger.getLogger(cases.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            code.setText("");
+            model.setText("");
+            lot.setValue(1);
+            code.requestFocusInWindow();            
+        }else{
+            JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_saveActionPerformed
+    
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelActionPerformed
+
+    private void cleanBrandMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cleanBrandMousePressed
+        brand.setText("");
+        brand.requestFocusInWindow();
+    }//GEN-LAST:event_cleanBrandMousePressed
+    
+        
+    private boolean validateData(){
+        boolean ok;
+        
+        ok = !(code.getText().isBlank() || brand.getText().isBlank() || model.getText().isBlank());
+        
+        if(Integer.parseInt(lot.getValue().toString()) < 0){
+            ok = false;
+        }
+        
+        return ok;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField brand;
