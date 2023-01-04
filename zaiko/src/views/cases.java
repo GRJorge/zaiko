@@ -18,7 +18,7 @@ public class cases extends javax.swing.JPanel {
      */
     public cases() {
         initComponents();
-    }
+    }// TODO add your handling code // TODO add your handling code here:here:// TODO add your handling code here:
 
     /**
      * This method is called from within the constructor to initialize the form.
