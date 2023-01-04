@@ -18,6 +18,7 @@ public class menu extends javax.swing.JFrame {
         initComponents();
         
         panelAdd.setVisible(panelAddVisible);
+        changeContent(new inventory(), null);
     }
 
     /**
