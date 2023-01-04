@@ -44,7 +44,7 @@ public class cases extends javax.swing.JPanel {
         code = new javax.swing.JTextField();
         cleanBrand = new javax.swing.JLabel();
 
-        title.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        title.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("Agregar nuevo protector");
 

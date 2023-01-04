@@ -89,6 +89,11 @@ public class menu extends javax.swing.JFrame {
         phone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         phone.setText("Telefono");
         phone.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        phone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                phoneMousePressed(evt);
+            }
+        });
 
         props.setForeground(new java.awt.Color(0, 0, 0));
         props.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -100,13 +105,13 @@ public class menu extends javax.swing.JFrame {
         panelAddLayout.setHorizontalGroup(
             panelAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAddLayout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(cases, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(props, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         panelAddLayout.setVerticalGroup(
             panelAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,6 +187,12 @@ public class menu extends javax.swing.JFrame {
         cases w = new cases();
         changeContent(w,w.code);
     }//GEN-LAST:event_casesMousePressed
+
+    private void phoneMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_phoneMousePressed
+        hideAddPanel(false);
+        phone w = new phone();
+        changeContent(w,w.code);
+    }//GEN-LAST:event_phoneMousePressed
     
     public static void changeContent(JPanel newContent, JTextField focus){
         newContent.setSize(content.getSize().width,content.getSize().height);
