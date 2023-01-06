@@ -1,9 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package views;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
+import database.*;
 /**
  *
  * @author jorge
@@ -15,6 +18,15 @@ public class inventory extends javax.swing.JPanel {
      */
     public inventory() {
         initComponents();
+        
+        try {
+            fillCaseTable(casesDB.get());
+            fillMicaTable(micaDB.get());
+            fillPropTable(propDB.get());
+            fillPhoneTable(phoneDB.get());
+        } catch (SQLException ex) {
+            Logger.getLogger(inventory.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -31,14 +43,14 @@ public class inventory extends javax.swing.JPanel {
         caseTableScroll = new javax.swing.JScrollPane();
         caseTable = new javax.swing.JTable();
         micaPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        micaTableScroll = new javax.swing.JScrollPane();
+        micaTable = new javax.swing.JTable();
         propPanel = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        propScrollTable = new javax.swing.JScrollPane();
+        propTable = new javax.swing.JTable();
         phonePanel = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        phoneScrollTable = new javax.swing.JScrollPane();
+        phoneTable = new javax.swing.JTable();
 
         tabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
@@ -86,7 +98,7 @@ public class inventory extends javax.swing.JPanel {
 
         tabbedPane.addTab("Protectores", casePanel);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        micaTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -109,10 +121,10 @@ public class inventory extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(128);
-            jTable1.getColumnModel().getColumn(4).setMaxWidth(128);
+        micaTableScroll.setViewportView(micaTable);
+        if (micaTable.getColumnModel().getColumnCount() > 0) {
+            micaTable.getColumnModel().getColumn(0).setMaxWidth(128);
+            micaTable.getColumnModel().getColumn(4).setMaxWidth(128);
         }
 
         javax.swing.GroupLayout micaPanelLayout = new javax.swing.GroupLayout(micaPanel);
@@ -121,16 +133,16 @@ public class inventory extends javax.swing.JPanel {
             micaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, micaPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
+                .addComponent(micaTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
         );
         micaPanelLayout.setVerticalGroup(
             micaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+            .addComponent(micaTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
         );
 
         tabbedPane.addTab("Micas", micaPanel);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        propTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -153,10 +165,10 @@ public class inventory extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setMaxWidth(128);
-            jTable2.getColumnModel().getColumn(3).setMaxWidth(128);
+        propScrollTable.setViewportView(propTable);
+        if (propTable.getColumnModel().getColumnCount() > 0) {
+            propTable.getColumnModel().getColumn(0).setMaxWidth(128);
+            propTable.getColumnModel().getColumn(3).setMaxWidth(128);
         }
 
         javax.swing.GroupLayout propPanelLayout = new javax.swing.GroupLayout(propPanel);
@@ -165,16 +177,16 @@ public class inventory extends javax.swing.JPanel {
             propPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(propPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
+                .addComponent(propScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
         );
         propPanelLayout.setVerticalGroup(
             propPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+            .addComponent(propScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
         );
 
         tabbedPane.addTab("Accesorios", propPanel);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        phoneTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -190,10 +202,10 @@ public class inventory extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setMaxWidth(128);
-            jTable3.getColumnModel().getColumn(4).setMaxWidth(128);
+        phoneScrollTable.setViewportView(phoneTable);
+        if (phoneTable.getColumnModel().getColumnCount() > 0) {
+            phoneTable.getColumnModel().getColumn(0).setMaxWidth(128);
+            phoneTable.getColumnModel().getColumn(4).setMaxWidth(128);
         }
 
         javax.swing.GroupLayout phonePanelLayout = new javax.swing.GroupLayout(phonePanel);
@@ -202,11 +214,11 @@ public class inventory extends javax.swing.JPanel {
             phonePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(phonePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
+                .addComponent(phoneScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
         );
         phonePanelLayout.setVerticalGroup(
             phonePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+            .addComponent(phoneScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
         );
 
         tabbedPane.addTab("Telefonos", phonePanel);
@@ -222,21 +234,80 @@ public class inventory extends javax.swing.JPanel {
             .addComponent(tabbedPane)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-
+    private void fillCaseTable(ResultSet query) throws SQLException{
+        String[] data = new String[5];
+        
+        DefaultTableModel model = (DefaultTableModel) caseTable.getModel();
+        model.setRowCount(0);
+        while(query.next()){
+            data[0] = query.getString("codigo");
+            data[1] = query.getString("tipo");
+            data[2] = query.getString("marca");
+            data[3] = query.getString("modelo");
+            data[4] = query.getString("cantidad");
+            model.addRow(data);
+        }
+        caseTable.setModel(model);
+    }
+    private void fillMicaTable(ResultSet query) throws SQLException{
+        String[] data = new String[5];
+        
+        DefaultTableModel model = (DefaultTableModel) micaTable.getModel();
+        model.setRowCount(0);
+        while(query.next()){
+            data[0] = query.getString("codigo");
+            data[1] = query.getString("tipo");
+            data[2] = query.getString("marca");
+            data[3] = query.getString("modelo");
+            data[4] = query.getString("cantidad");
+            model.addRow(data);
+        }
+        micaTable.setModel(model);
+    }
+    private void fillPropTable(ResultSet query) throws SQLException{
+        String[] data = new String[4];
+        
+        DefaultTableModel model = (DefaultTableModel) propTable.getModel();
+        model.setRowCount(0);
+        while(query.next()){
+            data[0] = query.getString("codigo");
+            data[1] = query.getString("marca");
+            data[2] = query.getString("descripcion");
+            data[3] = query.getString("cantidad");
+            model.addRow(data);
+        }
+        propTable.setModel(model);
+    }
+    private void fillPhoneTable(ResultSet query) throws SQLException{
+        String[] data = new String[5];
+        
+        DefaultTableModel model = (DefaultTableModel) phoneTable.getModel();
+        model.setRowCount(0);
+        while(query.next()){
+            data[0] = query.getString("codigo");
+            data[1] = query.getString("marca");
+            data[2] = query.getString("modelo");
+            data[3] = query.getString("capacidad");
+            data[4] = query.getString("cantidad");
+            model.addRow(data);
+        }
+        phoneTable.setModel(model);
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel casePanel;
     private javax.swing.JTable caseTable;
     private javax.swing.JScrollPane caseTableScroll;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JPanel micaPanel;
+    private javax.swing.JTable micaTable;
+    private javax.swing.JScrollPane micaTableScroll;
     private javax.swing.JPanel phonePanel;
+    private javax.swing.JScrollPane phoneScrollTable;
+    private javax.swing.JTable phoneTable;
     private javax.swing.JPanel propPanel;
+    private javax.swing.JScrollPane propScrollTable;
+    private javax.swing.JTable propTable;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }

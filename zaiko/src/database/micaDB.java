@@ -17,4 +17,8 @@ public class micaDB {
         stmt = con.createStatement();
         stmt.executeUpdate("INSERT INTO mica VALUES(NULL,'" + type + "','" + brand + "','" + model + "',(SELECT MAX(id) FROM articulo))");
     }
+    public static ResultSet get() throws SQLException{
+        stmt = con.createStatement();
+        return stmt.executeQuery("SELECT codigo, tipo, marca, modelo, cantidad FROM mica INNER JOIN articulo WHERE articuloFK=articulo.id;");
+    }
 }

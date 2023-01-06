@@ -17,4 +17,8 @@ public class propDB {
         stmt = con.createStatement();
         stmt.executeUpdate("INSERT INTO accesorio VALUES(NULL,'" + brand + "','" + description + "',(SELECT MAX(id) FROM articulo))");
     }
+    public static ResultSet get() throws SQLException{
+        stmt = con.createStatement();
+        return stmt.executeQuery("SELECT codigo, marca, descripcion, cantidad FROM accesorio INNER JOIN articulo WHERE articuloFK=articulo.id;");
+    }
 }
