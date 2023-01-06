@@ -175,7 +175,7 @@ public class mica extends javax.swing.JPanel {
                 articleDB.add(code.getText(), Integer.parseInt(lot.getValue().toString()));
                 micaDB.add(type.getSelectedItem().toString(), brand.getText(), model.getText());
             } catch (SQLException ex) {
-                Logger.getLogger(cases.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "El codigo " + code.getText() + " ya fue registrado.", "Codigo ya existente", 1);
             }
             
             code.setText("");
