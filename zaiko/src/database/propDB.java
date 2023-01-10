@@ -19,6 +19,6 @@ public class propDB {
     }
     public static ResultSet get() throws SQLException{
         stmt = con.createStatement();
-        return stmt.executeQuery("SELECT codigo, marca, descripcion, cantidad FROM accesorio INNER JOIN articulo WHERE articuloFK=articulo.id;");
+        return stmt.executeQuery("SELECT codigo, marca, descripcion, cantidad FROM accesorio INNER JOIN articulo WHERE articuloFK=articulo.id ORDER BY articulo.id DESC");
     }
 }

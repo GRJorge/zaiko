@@ -19,6 +19,6 @@ public class phoneDB {
     }
     public static ResultSet get() throws SQLException{
         stmt = con.createStatement();
-        return stmt.executeQuery("SELECT codigo, marca, modelo, capacidad, cantidad FROM telefono INNER JOIN articulo WHERE articuloFK=articulo.id;");
+        return stmt.executeQuery("SELECT codigo, marca, modelo, capacidad, cantidad FROM telefono INNER JOIN articulo WHERE articuloFK=articulo.id ORDER BY articulo.id DESC");
     }
 }

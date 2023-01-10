@@ -19,6 +19,6 @@ public class micaDB {
     }
     public static ResultSet get() throws SQLException{
         stmt = con.createStatement();
-        return stmt.executeQuery("SELECT codigo, tipo, marca, modelo, cantidad FROM mica INNER JOIN articulo WHERE articuloFK=articulo.id;");
+        return stmt.executeQuery("SELECT codigo, tipo, marca, modelo, cantidad FROM mica INNER JOIN articulo WHERE articuloFK=articulo.id ORDER BY articulo.id DESC");
     }
 }
