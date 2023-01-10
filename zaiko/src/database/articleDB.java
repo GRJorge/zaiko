@@ -19,10 +19,10 @@ public class articleDB {
     }
     public static void updateLot(String code, int newLot) throws SQLException{
         stmt = con.createStatement();
-        stmt.executeUpdate("UPDATE articulo SET cantidad=" + newLot + " WHERE codigo=" + code);
+        stmt.executeUpdate("UPDATE articulo SET cantidad=" + newLot + " WHERE codigo='" + code + "'");
     }
     public static ResultSet getByCode(String code) throws SQLException{
         stmt = con.createStatement();
-        return stmt.executeQuery("SELECT * FROM articulo WHERE codigo=" + code);
+        return stmt.executeQuery("SELECT * FROM articulo WHERE codigo='" + code + "'");
     }
 }
