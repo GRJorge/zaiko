@@ -1,5 +1,15 @@
 package views;
 
+import java.sql.ResultSet;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+
+import database.articleDB;
 /**
  *
  * @author jorge
@@ -11,6 +21,19 @@ public class changeInventory extends javax.swing.JPanel {
      */
     public changeInventory() {
         initComponents();
+        
+        ((JSpinner.DefaultEditor)newLot.getEditor()).getTextField().addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {}
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == 10){
+                    save.requestFocusInWindow();
+                }
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
     }
 
     /**
@@ -42,6 +65,12 @@ public class changeInventory extends javax.swing.JPanel {
 
         codeTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         codeTitle.setText("Codigo:");
+
+        code.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                codeKeyPressed(evt);
+            }
+        });
 
         method.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sumar", "Restar", "Igualar" }));
         method.addItemListener(new java.awt.event.ItemListener() {
@@ -173,7 +202,16 @@ public class changeInventory extends javax.swing.JPanel {
     }//GEN-LAST:event_methodItemStateChanged
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        // TODO add your handling code here:
+        try {
+            articleDB.updateLot(code.getText(), Integer.parseInt(finalLot.getText()));
+        } catch (SQLException ex) {
+            Logger.getLogger(changeInventory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        code.setText("");
+        actualLot.setText("0");
+        newLot.setValue(0);
+        finalLot.setText("0");
+        code.requestFocusInWindow();
     }//GEN-LAST:event_saveActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
@@ -193,6 +231,30 @@ public class changeInventory extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_newLotStateChanged
+
+    private void codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codeKeyPressed
+        if(evt.getKeyCode() == 10){
+            try {
+                String lot = null;
+                ResultSet query = articleDB.getByCode(code.getText());
+                
+                while(query.next()){
+                    lot = query.getString("cantidad");
+                }
+                
+                if(lot == null){
+                    JOptionPane.showMessageDialog(null, "No existe ese codigo en la base de datos","Error",0);
+                    code.setText("");
+                }else{
+                    actualLot.setText(lot);
+                    finalLot.setText(lot);
+                    method.requestFocusInWindow();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(changeInventory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_codeKeyPressed
 
     private void hideFinalLot(boolean visible){
         finalLotTitle.setVisible(visible);

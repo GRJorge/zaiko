@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,8 +17,12 @@ public class articleDB {
         stmt = con.createStatement();
         stmt.executeUpdate("INSERT INTO articulo VALUES(NULL, '" + code + "', " + lot + ")");
     }
-    public static ResultSet getMaxId() throws SQLException{
+    public static void updateLot(String code, int newLot) throws SQLException{
         stmt = con.createStatement();
-        return stmt.executeQuery("SELECT MAX(id) AS id FROM articulo;");
+        stmt.executeUpdate("UPDATE articulo SET cantidad=" + newLot + " WHERE codigo=" + code);
+    }
+    public static ResultSet getByCode(String code) throws SQLException{
+        stmt = con.createStatement();
+        return stmt.executeQuery("SELECT * FROM articulo WHERE codigo=" + code);
     }
 }
