@@ -238,7 +238,7 @@ public class inventory extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) caseTable.getModel();
         model.setRowCount(0);
         while(query.next()){
-            data[0] = query.getString("codigo");
+            data[0] = query.getString("codigo").toUpperCase();
             data[1] = query.getString("tipo");
             data[2] = query.getString("marca");
             data[3] = query.getString("modelo");
@@ -253,7 +253,7 @@ public class inventory extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) micaTable.getModel();
         model.setRowCount(0);
         while(query.next()){
-            data[0] = query.getString("codigo");
+            data[0] = query.getString("codigo").toUpperCase();
             data[1] = query.getString("tipo");
             data[2] = query.getString("marca");
             data[3] = query.getString("modelo");
@@ -268,7 +268,7 @@ public class inventory extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) propTable.getModel();
         model.setRowCount(0);
         while(query.next()){
-            data[0] = query.getString("codigo");
+            data[0] = query.getString("codigo").toUpperCase();
             data[1] = query.getString("marca");
             data[2] = query.getString("descripcion");
             data[3] = query.getString("cantidad");
@@ -282,7 +282,7 @@ public class inventory extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) phoneTable.getModel();
         model.setRowCount(0);
         while(query.next()){
-            data[0] = query.getString("codigo");
+            data[0] = query.getString("codigo").toUpperCase();
             data[1] = query.getString("marca");
             data[2] = query.getString("modelo");
             data[3] = query.getString("capacidad");
