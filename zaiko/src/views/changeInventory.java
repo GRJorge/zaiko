@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package views;
 
 /**
@@ -29,14 +25,16 @@ public class changeInventory extends javax.swing.JPanel {
         title = new javax.swing.JLabel();
         codeTitle = new javax.swing.JLabel();
         code = new javax.swing.JTextField();
+        method = new javax.swing.JComboBox<>();
         actualLotTitle = new javax.swing.JLabel();
         actualLot = new javax.swing.JTextField();
-        newCountTitle = new javax.swing.JLabel();
+        newLotTitle = new javax.swing.JLabel();
         newLot = new javax.swing.JSpinner();
+        symbol = new javax.swing.JLabel();
+        finalLotTitle = new javax.swing.JLabel();
+        finalLot = new javax.swing.JTextField();
         save = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
-        method = new javax.swing.JComboBox<>();
-        symbol = new javax.swing.JLabel();
 
         title.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -45,23 +43,51 @@ public class changeInventory extends javax.swing.JPanel {
         codeTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         codeTitle.setText("Codigo:");
 
+        method.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sumar", "Restar", "Igualar" }));
+        method.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                methodItemStateChanged(evt);
+            }
+        });
+
         actualLotTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         actualLotTitle.setText("Cantidad actual:");
 
         actualLot.setEditable(false);
+        actualLot.setText("0");
 
-        newCountTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        newCountTitle.setText("Nueva cantidad:");
+        newLotTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        newLotTitle.setText("Sumar cantidad:");
 
-        save.setText("Guardar");
-
-        cancel.setText("Volver");
-
-        method.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sumar", "Restar", "Igualar" }));
+        newLot.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                newLotStateChanged(evt);
+            }
+        });
 
         symbol.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        symbol.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        symbol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         symbol.setText("+");
+
+        finalLotTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        finalLotTitle.setText("Cantidad final:");
+
+        finalLot.setEditable(false);
+        finalLot.setText("0");
+
+        save.setText("Guardar");
+        save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveActionPerformed(evt);
+            }
+        });
+
+        cancel.setText("Volver");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -69,27 +95,29 @@ public class changeInventory extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(105, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(actualLotTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(newCountTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(actualLotTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(newLotTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(finalLotTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(actualLot, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(newLot)))
+                            .addComponent(newLot)
+                            .addComponent(finalLot)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(codeTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(codeTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(method, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(code, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(symbol)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addComponent(symbol, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,26 +137,79 @@ public class changeInventory extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newLot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(newCountTitle)
+                    .addComponent(newLotTitle)
                     .addComponent(symbol))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(finalLotTitle)
+                    .addComponent(finalLot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save)
                     .addComponent(cancel))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void methodItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_methodItemStateChanged
+        switch (method.getSelectedIndex()) {
+            case 0 -> {
+                symbol.setText("+");
+                newLotTitle.setText("Sumar cantidad:");
+                hideFinalLot(true);
+            }
+            case 1 -> {
+                symbol.setText("-");
+                newLotTitle.setText("Restar cantidad:");
+                hideFinalLot(true);
+            }
+            default -> {
+                symbol.setText("=");
+                newLotTitle.setText("Nueva cantidad:");
+                hideFinalLot(false);
+            }
+        }
+        newLot.setValue(0);
+    }//GEN-LAST:event_methodItemStateChanged
 
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveActionPerformed
+
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        menu.changeContent(new inventory(), null);
+    }//GEN-LAST:event_cancelActionPerformed
+
+    private void newLotStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_newLotStateChanged
+        switch(method.getSelectedIndex()){
+            case 0 -> {
+                finalLot.setText("" + (Integer.parseInt(actualLot.getText()) + Integer.parseInt(newLot.getValue().toString())));
+            }
+            case 1 -> {
+                finalLot.setText("" + (Integer.parseInt(actualLot.getText()) - Integer.parseInt(newLot.getValue().toString())));
+            }
+            default -> {
+                finalLot.setText("" + (Integer.parseInt(newLot.getValue().toString())));
+            }
+        }
+    }//GEN-LAST:event_newLotStateChanged
+
+    private void hideFinalLot(boolean visible){
+        finalLotTitle.setVisible(visible);
+        finalLot.setVisible(visible);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField actualLot;
     private javax.swing.JLabel actualLotTitle;
     private javax.swing.JButton cancel;
     public javax.swing.JTextField code;
     private javax.swing.JLabel codeTitle;
+    private javax.swing.JTextField finalLot;
+    private javax.swing.JLabel finalLotTitle;
     private javax.swing.JComboBox<String> method;
-    private javax.swing.JLabel newCountTitle;
     private javax.swing.JSpinner newLot;
+    private javax.swing.JLabel newLotTitle;
     private javax.swing.JButton save;
     private javax.swing.JLabel symbol;
     private javax.swing.JLabel title;
