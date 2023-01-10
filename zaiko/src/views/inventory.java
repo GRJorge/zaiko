@@ -52,8 +52,6 @@ public class inventory extends javax.swing.JPanel {
         phoneScrollTable = new javax.swing.JScrollPane();
         phoneTable = new javax.swing.JTable();
 
-        tabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-
         caseTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -87,13 +85,13 @@ public class inventory extends javax.swing.JPanel {
         casePanel.setLayout(casePanelLayout);
         casePanelLayout.setHorizontalGroup(
             casePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, casePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(caseTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
+            .addComponent(caseTableScroll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         casePanelLayout.setVerticalGroup(
             casePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(caseTableScroll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, casePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(caseTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Protectores", casePanel);
@@ -131,13 +129,13 @@ public class inventory extends javax.swing.JPanel {
         micaPanel.setLayout(micaPanelLayout);
         micaPanelLayout.setHorizontalGroup(
             micaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, micaPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(micaTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
+            .addComponent(micaTableScroll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         micaPanelLayout.setVerticalGroup(
             micaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(micaTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, micaPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(micaTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Micas", micaPanel);
@@ -175,13 +173,13 @@ public class inventory extends javax.swing.JPanel {
         propPanel.setLayout(propPanelLayout);
         propPanelLayout.setHorizontalGroup(
             propPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(propPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(propScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
+            .addComponent(propScrollTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         propPanelLayout.setVerticalGroup(
             propPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(propScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, propPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(propScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Accesorios", propPanel);
@@ -212,13 +210,13 @@ public class inventory extends javax.swing.JPanel {
         phonePanel.setLayout(phonePanelLayout);
         phonePanelLayout.setHorizontalGroup(
             phonePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(phonePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(phoneScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
+            .addComponent(phoneScrollTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         phonePanelLayout.setVerticalGroup(
             phonePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(phoneScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, phonePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(phoneScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Telefonos", phonePanel);
