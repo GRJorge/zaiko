@@ -32,15 +32,16 @@ public class cases extends javax.swing.JPanel {
         type = new javax.swing.JComboBox<>();
         titleBrand = new javax.swing.JLabel();
         brand = new javax.swing.JTextField();
+        cleanBrand = new javax.swing.JLabel();
         titleModel = new javax.swing.JLabel();
         model = new javax.swing.JTextField();
         titleLot = new javax.swing.JLabel();
         lot = new javax.swing.JSpinner();
+        saveLot = new javax.swing.JCheckBox();
         cancel = new javax.swing.JButton();
         save = new javax.swing.JButton();
         titleCode = new javax.swing.JLabel();
         code = new javax.swing.JTextField();
-        cleanBrand = new javax.swing.JLabel();
 
         title.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -54,6 +55,17 @@ public class cases extends javax.swing.JPanel {
         titleBrand.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleBrand.setText("Marca:");
 
+        cleanBrand.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        cleanBrand.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cleanBrand.setText("x");
+        cleanBrand.setToolTipText("Borrar marca");
+        cleanBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cleanBrand.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cleanBrandMousePressed(evt);
+            }
+        });
+
         titleModel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleModel.setText("Modelo:");
 
@@ -62,6 +74,8 @@ public class cases extends javax.swing.JPanel {
 
         lot.setToolTipText("");
         lot.setValue(1);
+
+        saveLot.setToolTipText("Mantener cantidad");
 
         cancel.setText("Volver");
         cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -86,26 +100,14 @@ public class cases extends javax.swing.JPanel {
             }
         });
 
-        cleanBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clean16x.png"))); // NOI18N
-        cleanBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cleanBrand.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                cleanBrandMousePressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(titleCode, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -126,10 +128,16 @@ public class cases extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(titleType, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cleanBrand)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(saveLot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cleanBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,9 +163,11 @@ public class cases extends javax.swing.JPanel {
                     .addComponent(model, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(titleModel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(titleLot))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(titleLot))
+                    .addComponent(saveLot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancel)
@@ -183,7 +193,9 @@ public class cases extends javax.swing.JPanel {
             
             code.setText("");
             model.setText("");
-            lot.setValue(1);
+            if(!saveLot.isSelected()){
+                lot.setValue(1);
+            }
             code.requestFocusInWindow();            
         }else{
             JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
@@ -219,6 +231,7 @@ public class cases extends javax.swing.JPanel {
     private javax.swing.JSpinner lot;
     private javax.swing.JTextField model;
     private javax.swing.JButton save;
+    private javax.swing.JCheckBox saveLot;
     private javax.swing.JLabel title;
     private javax.swing.JLabel titleBrand;
     private javax.swing.JLabel titleCode;

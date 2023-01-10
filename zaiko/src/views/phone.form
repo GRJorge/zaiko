@@ -58,7 +58,10 @@
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="cleanBrand" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="saveLot" max="32767" attributes="0"/>
+                  <Component id="cleanBrand" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace pref="30" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -99,6 +102,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lot" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="titleLot" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="saveLot" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -144,9 +148,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="cleanBrand">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/icons/clean16x.png"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Roboto" size="18" style="0"/>
         </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="x"/>
+        <Property name="toolTipText" type="java.lang.String" value="Borrar marca"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
           <Color id="Cursor de Mano"/>
         </Property>
@@ -218,6 +225,11 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="saveLot">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Mantener cantidad"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

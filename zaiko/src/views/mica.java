@@ -41,6 +41,7 @@ public class mica extends javax.swing.JPanel {
         lot = new javax.swing.JSpinner();
         cancel = new javax.swing.JButton();
         save = new javax.swing.JButton();
+        saveLot = new javax.swing.JCheckBox();
 
         title.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -63,7 +64,10 @@ public class mica extends javax.swing.JPanel {
         titleBrand.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleBrand.setText("Marca:");
 
-        cleanBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clean16x.png"))); // NOI18N
+        cleanBrand.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        cleanBrand.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cleanBrand.setText("x");
+        cleanBrand.setToolTipText("Borrar marca");
         cleanBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cleanBrand.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -93,6 +97,8 @@ public class mica extends javax.swing.JPanel {
                 saveActionPerformed(evt);
             }
         });
+
+        saveLot.setToolTipText("Mantener cantidad");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -129,7 +135,9 @@ public class mica extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(code, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cleanBrand)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(saveLot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cleanBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -158,7 +166,8 @@ public class mica extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(titleLot))
+                    .addComponent(titleLot)
+                    .addComponent(saveLot, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancel)
@@ -178,7 +187,9 @@ public class mica extends javax.swing.JPanel {
             
             code.setText("");
             model.setText("");
-            lot.setValue(1);
+            if(!saveLot.isSelected()){
+                lot.setValue(1);
+            }
             code.requestFocusInWindow();            
         }else{
             JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
@@ -220,6 +231,7 @@ public class mica extends javax.swing.JPanel {
     private javax.swing.JSpinner lot;
     private javax.swing.JTextField model;
     private javax.swing.JButton save;
+    private javax.swing.JCheckBox saveLot;
     private javax.swing.JLabel title;
     private javax.swing.JLabel titleBrand;
     private javax.swing.JLabel titleCode;

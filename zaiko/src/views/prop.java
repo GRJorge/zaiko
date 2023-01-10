@@ -39,6 +39,7 @@ public class prop extends javax.swing.JPanel {
         lot = new javax.swing.JSpinner();
         cancel = new javax.swing.JButton();
         save = new javax.swing.JButton();
+        saveLot = new javax.swing.JCheckBox();
 
         title.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -53,7 +54,10 @@ public class prop extends javax.swing.JPanel {
             }
         });
 
-        cleanBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clean16x.png"))); // NOI18N
+        cleanBrand.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        cleanBrand.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cleanBrand.setText("x");
+        cleanBrand.setToolTipText("Borrar marca");
         cleanBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cleanBrand.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -87,6 +91,8 @@ public class prop extends javax.swing.JPanel {
             }
         });
 
+        saveLot.setToolTipText("Mantener cantidad");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,7 +123,9 @@ public class prop extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cleanBrand)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(saveLot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cleanBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -142,7 +150,8 @@ public class prop extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(titleLot))
+                    .addComponent(titleLot)
+                    .addComponent(saveLot, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancel)
@@ -168,7 +177,9 @@ public class prop extends javax.swing.JPanel {
             
             code.setText("");
             description.setText("");
-            lot.setValue(1);
+            if(!saveLot.isSelected()){
+                lot.setValue(1);
+            }
             code.requestFocusInWindow();            
         }else{
             JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
@@ -204,6 +215,7 @@ public class prop extends javax.swing.JPanel {
     private javax.swing.JTextField description;
     private javax.swing.JSpinner lot;
     private javax.swing.JButton save;
+    private javax.swing.JCheckBox saveLot;
     private javax.swing.JLabel title;
     private javax.swing.JLabel titleBrand;
     private javax.swing.JLabel titleCode;
