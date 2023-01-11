@@ -21,4 +21,8 @@ public class phoneDB {
         stmt = con.createStatement();
         return stmt.executeQuery("SELECT codigo, marca, modelo, capacidad, cantidad FROM telefono INNER JOIN articulo WHERE articuloFK=articulo.id ORDER BY articulo.id DESC");
     }
+    public static ResultSet searchBy(String by, String searchText) throws SQLException{
+        stmt = con.createStatement();
+        return stmt.executeQuery("SELECT codigo, marca, modelo, capacidad, cantidad FROM telefono INNER JOIN articulo WHERE " + by + " LIKE '%" + searchText + "%' AND articuloFK=articulo.id");
+    }
 }

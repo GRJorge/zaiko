@@ -21,4 +21,8 @@ public class micaDB {
         stmt = con.createStatement();
         return stmt.executeQuery("SELECT codigo, tipo, marca, modelo, cantidad FROM mica INNER JOIN articulo WHERE articuloFK=articulo.id ORDER BY articulo.id DESC");
     }
+    public static ResultSet searchBy(String by, String searchText) throws SQLException{
+        stmt = con.createStatement();
+        return stmt.executeQuery("SELECT codigo, tipo, marca, modelo, cantidad FROM mica INNER JOIN articulo WHERE " + by + " LIKE '%" + searchText + "%' AND articuloFK=articulo.id");
+    }
 }

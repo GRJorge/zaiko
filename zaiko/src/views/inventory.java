@@ -5,8 +5,10 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultComboBoxModel;
 
 import database.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author jorge
@@ -18,7 +20,6 @@ public class inventory extends javax.swing.JPanel {
      */
     public inventory() {
         initComponents();
-        
         try {
             fillCaseTable(casesDB.get());
             fillMicaTable(micaDB.get());
@@ -51,6 +52,18 @@ public class inventory extends javax.swing.JPanel {
         phonePanel = new javax.swing.JPanel();
         phoneScrollTable = new javax.swing.JScrollPane();
         phoneTable = new javax.swing.JTable();
+        searchByTitle = new javax.swing.JLabel();
+        searchBy = new javax.swing.JComboBox<>();
+        searchText = new javax.swing.JTextField();
+        search = new javax.swing.JButton();
+        type = new javax.swing.JComboBox<>();
+
+        tabbedPane.setToolTipText("");
+        tabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabbedPaneStateChanged(evt);
+            }
+        });
 
         caseTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,7 +104,7 @@ public class inventory extends javax.swing.JPanel {
             casePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, casePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(caseTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
+                .addComponent(caseTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Protectores", casePanel);
@@ -135,7 +148,7 @@ public class inventory extends javax.swing.JPanel {
             micaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, micaPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(micaTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
+                .addComponent(micaTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Micas", micaPanel);
@@ -179,7 +192,7 @@ public class inventory extends javax.swing.JPanel {
             propPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, propPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(propScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
+                .addComponent(propScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Accesorios", propPanel);
@@ -216,22 +229,154 @@ public class inventory extends javax.swing.JPanel {
             phonePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, phonePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(phoneScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
+                .addComponent(phoneScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Telefonos", phonePanel);
+
+        searchByTitle.setText("Buscar por:");
+
+        searchBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo", "Marca", "Modelo", "Tipo" }));
+        searchBy.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                searchByItemStateChanged(evt);
+            }
+        });
+
+        search.setText(">");
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+
+        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Protector", "Clip", "Otterbox" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabbedPane)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(searchByTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchBy, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(search)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(tabbedPane)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchByTitle)
+                    .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(search)
+                    .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void tabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbedPaneStateChanged
+        searchText.setVisible(true);
+        type.setVisible(false);
+        
+        DefaultComboBoxModel<String> searchByModel;
+        DefaultComboBoxModel<String> typeModel;
+        
+        switch(tabbedPane.getSelectedIndex()){
+            case 0 -> {
+                String[] searchByData = {"Codigo","Marca","Modelo","Tipo"};
+                searchByModel =  new DefaultComboBoxModel(searchByData);
+                
+                String[] typeData = {"Protector","Clip","Otterbox"};
+                typeModel = new DefaultComboBoxModel(typeData);
+            }
+            case 1 -> {
+                String[] searchByData = {"Codigo","Marca","Modelo","Tipo"};
+                searchByModel = new DefaultComboBoxModel(searchByData);
+                
+                String[] typeData = {"Normal","Completa","Privacidad","Completa"};
+                typeModel = new DefaultComboBoxModel(typeData);
+            }
+            case 2 -> {
+                String[] searchByData = {"Codigo","Marca","Descripcion"};
+                searchByModel = new DefaultComboBoxModel(searchByData);
+                
+                String[] typeData = {"Hidden text"};
+                typeModel = new DefaultComboBoxModel(typeData);
+            }
+            default -> {
+                String[] searchByData = {"Codigo","Marca","Modelo","Capacidad"};
+                searchByModel = new DefaultComboBoxModel(searchByData);
+                
+                String[] typeData = {"8GB","16GB","32GB","64GB","128GB","256GB","512GB","1TB"};
+                typeModel = new DefaultComboBoxModel(typeData);
+            }
+        }
+        searchBy.setModel(searchByModel);
+        type.setModel(typeModel);
+    }//GEN-LAST:event_tabbedPaneStateChanged
+
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        search();
+    }//GEN-LAST:event_searchActionPerformed
+
+    private void searchByItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_searchByItemStateChanged
+        if(searchBy.getSelectedIndex() != 3){
+            type.setVisible(false);
+            searchText.setVisible(true);
+            searchText.setText("");
+        }else{            
+            type.setVisible(true);
+            searchText.setVisible(false);
+            searchText.setText("Hidden text");
+        }
+    }//GEN-LAST:event_searchByItemStateChanged
+    
+    private void search(){
+        if(!searchText.getText().isBlank()){
+            String searchData;
+                
+            if(searchBy.getSelectedIndex() != 3){
+                searchData = searchText.getText();
+                searchText.setText("");
+            }else{
+                searchData = type.getSelectedItem().toString();
+            }
+
+            try {            
+                switch(tabbedPane.getSelectedIndex()){
+                    case 0 -> fillCaseTable(casesDB.searchBy(searchBy.getSelectedItem().toString().toLowerCase(), searchData));
+                    case 1 -> fillMicaTable(micaDB.searchBy(searchBy.getSelectedItem().toString().toLowerCase(), searchData));
+                    case 2 -> fillPropTable(propDB.searchBy(searchBy.getSelectedItem().toString().toLowerCase(), searchData));
+                    default -> fillPhoneTable(phoneDB.searchBy(searchBy.getSelectedItem().toString().toLowerCase(), searchData));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(inventory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            try{
+                switch(tabbedPane.getSelectedIndex()){
+                    case 0 -> fillCaseTable(casesDB.get());
+                    case 1 -> fillMicaTable(micaDB.get());
+                    case 2 -> fillPropTable(propDB.get());
+                    default -> fillPhoneTable(phoneDB.get());
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(inventory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
     private void fillCaseTable(ResultSet query) throws SQLException{
         String[] data = new String[5];
         
@@ -306,6 +451,11 @@ public class inventory extends javax.swing.JPanel {
     private javax.swing.JPanel propPanel;
     private javax.swing.JScrollPane propScrollTable;
     private javax.swing.JTable propTable;
+    private javax.swing.JButton search;
+    private javax.swing.JComboBox<String> searchBy;
+    private javax.swing.JLabel searchByTitle;
+    private javax.swing.JTextField searchText;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JComboBox<String> type;
     // End of variables declaration//GEN-END:variables
 }

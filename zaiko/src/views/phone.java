@@ -77,7 +77,6 @@ public class phone extends javax.swing.JPanel {
         titleCapacity.setText("Capacidad:");
 
         capacity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8GB", "16GB", "32GB", "64GB", "128GB", "256GB", "512GB", "1TB" }));
-        capacity.setSelectedIndex(3);
 
         titleLot.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleLot.setText("Cantidad:");
