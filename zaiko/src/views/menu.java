@@ -42,6 +42,7 @@ public class menu extends javax.swing.JFrame {
         phone = new javax.swing.JLabel();
         panelMenu = new javax.swing.JPanel();
         changeInventory = new javax.swing.JLabel();
+        sell = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -169,6 +170,15 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
+        sell.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sell.setText("Vender/Rebajar");
+        sell.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sell.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                sellMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
         panelMenu.setLayout(panelMenuLayout);
         panelMenuLayout.setHorizontalGroup(
@@ -176,13 +186,17 @@ public class menu extends javax.swing.JFrame {
             .addGroup(panelMenuLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(changeInventory)
+                .addGap(18, 18, 18)
+                .addComponent(sell)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(changeInventory)
+                .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(changeInventory)
+                    .addComponent(sell))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
@@ -279,6 +293,11 @@ public class menu extends javax.swing.JFrame {
         changeInventory w = new changeInventory();
         changeContent(w,w.code);
     }//GEN-LAST:event_changeInventoryMousePressed
+
+    private void sellMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sellMousePressed
+        sell w = new sell();
+        changeContent(w,w.code);
+    }//GEN-LAST:event_sellMousePressed
     
     public static void changeContent(JPanel newContent, JTextField focus){
         hideAddPanel(false);
@@ -363,5 +382,6 @@ public class menu extends javax.swing.JFrame {
     private static javax.swing.JPanel panelMenu;
     private javax.swing.JLabel phone;
     private javax.swing.JLabel props;
+    private javax.swing.JLabel sell;
     // End of variables declaration//GEN-END:variables
 }
