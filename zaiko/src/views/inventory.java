@@ -57,6 +57,8 @@ public class inventory extends javax.swing.JPanel {
         searchText = new javax.swing.JTextField();
         search = new javax.swing.JButton();
         type = new javax.swing.JComboBox<>();
+        edit = new javax.swing.JButton();
+        delete = new javax.swing.JButton();
 
         tabbedPane.setToolTipText("");
         tabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -252,6 +254,20 @@ public class inventory extends javax.swing.JPanel {
 
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Protector", "Clip", "Otterbox" }));
 
+        edit.setText("Editar");
+        edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editActionPerformed(evt);
+            }
+        });
+
+        delete.setText("x");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -268,7 +284,11 @@ public class inventory extends javax.swing.JPanel {
                 .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(search)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(delete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,7 +300,9 @@ public class inventory extends javax.swing.JPanel {
                     .addComponent(searchByTitle)
                     .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(search)
-                    .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edit)
+                    .addComponent(delete))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -341,6 +363,42 @@ public class inventory extends javax.swing.JPanel {
             searchText.setText("Hidden text");
         }
     }//GEN-LAST:event_searchByItemStateChanged
+
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        
+    }//GEN-LAST:event_editActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        try{
+            String code;
+            String table;
+
+            switch(tabbedPane.getSelectedIndex()){
+                case 0 -> {
+                    code = caseTable.getModel().getValueAt(caseTable.getSelectedRow(), 0).toString();
+                    table = "protector";
+                }
+                case 1 -> {
+                    code = micaTable.getModel().getValueAt(micaTable.getSelectedRow(), 0).toString();
+                    table = "mica";
+                }
+                case 2 -> {
+                    code = propTable.getModel().getValueAt(propTable.getSelectedRow(), 0).toString();
+                    table = "accesorio";
+                }
+                default -> {
+                    code = phoneTable.getModel().getValueAt(phoneTable.getSelectedRow(), 0).toString();
+                    table = "telefono";
+                }
+            }
+            articleDB.delete(code, table);
+            fillTablesByIndex();
+        }catch(ArrayIndexOutOfBoundsException e){
+            JOptionPane.showMessageDialog(null, "Selecciona un articulo","Aviso",1);
+        }catch (SQLException ex) {
+            Logger.getLogger(inventory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_deleteActionPerformed
     
     private void search(){
         if(!searchText.getText().isBlank()){
@@ -364,16 +422,20 @@ public class inventory extends javax.swing.JPanel {
                 Logger.getLogger(inventory.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-            try{
-                switch(tabbedPane.getSelectedIndex()){
-                    case 0 -> fillCaseTable(casesDB.get());
-                    case 1 -> fillMicaTable(micaDB.get());
-                    case 2 -> fillPropTable(propDB.get());
-                    default -> fillPhoneTable(phoneDB.get());
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(inventory.class.getName()).log(Level.SEVERE, null, ex);
+            fillTablesByIndex();
+        }
+    }
+    
+    public void fillTablesByIndex(){
+        try{
+            switch(tabbedPane.getSelectedIndex()){
+                case 0 -> fillCaseTable(casesDB.get());
+                case 1 -> fillMicaTable(micaDB.get());
+                case 2 -> fillPropTable(propDB.get());
+                default -> fillPhoneTable(phoneDB.get());
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(inventory.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -437,11 +499,12 @@ public class inventory extends javax.swing.JPanel {
         phoneTable.setModel(model);
     }
     
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel casePanel;
     private javax.swing.JTable caseTable;
     private javax.swing.JScrollPane caseTableScroll;
+    private javax.swing.JButton delete;
+    private javax.swing.JButton edit;
     private javax.swing.JPanel micaPanel;
     private javax.swing.JTable micaTable;
     private javax.swing.JScrollPane micaTableScroll;
