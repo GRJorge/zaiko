@@ -272,11 +272,10 @@ public class menu extends javax.swing.JFrame {
             hidePanelMenu(false);
             hideAddPanel(true);
         }
-
     }//GEN-LAST:event_addMousePressed
 
     private void micaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_micaMousePressed
-        mica w = new mica();
+        mica w = new mica(null);
         changeContent(w,w.code);
     }//GEN-LAST:event_micaMousePressed
 

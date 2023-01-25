@@ -6,9 +6,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 import database.*;
-import javax.swing.JOptionPane;
 /**
  *
  * @author jorge
@@ -22,7 +22,7 @@ public class inventory extends javax.swing.JPanel {
         initComponents();
         try {
             fillCaseTable(casesDB.get(null));
-            fillMicaTable(micaDB.get());
+            fillMicaTable(micaDB.get(null));
             fillPropTable(propDB.get());
             fillPhoneTable(phoneDB.get());
         } catch (SQLException ex) {
@@ -368,6 +368,7 @@ public class inventory extends javax.swing.JPanel {
         try{
             switch(tabbedPane.getSelectedIndex()){
                 case 0 -> menu.changeContent(new cases(caseTable.getModel().getValueAt(caseTable.getSelectedRow(), 0).toString()), null);
+                case 1 -> menu.changeContent(new mica(micaTable.getModel().getValueAt(micaTable.getSelectedRow(), 0).toString()), null);
             }
         }catch(ArrayIndexOutOfBoundsException e){
             JOptionPane.showMessageDialog(null, "Selecciona un articulo","Error",0);
@@ -440,7 +441,7 @@ public class inventory extends javax.swing.JPanel {
         try{
             switch(tabbedPane.getSelectedIndex()){
                 case 0 -> fillCaseTable(casesDB.get(null));
-                case 1 -> fillMicaTable(micaDB.get());
+                case 1 -> fillMicaTable(micaDB.get(null));
                 case 2 -> fillPropTable(propDB.get());
                 default -> fillPhoneTable(phoneDB.get());
             }
