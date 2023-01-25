@@ -250,7 +250,7 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowStateChanged
 
     private void casesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_casesMousePressed
-        cases w = new cases();
+        cases w = new cases(null);
         changeContent(w,w.code);
     }//GEN-LAST:event_casesMousePressed
 

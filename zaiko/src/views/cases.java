@@ -4,19 +4,49 @@ import javax.swing.JOptionPane;
 import java.sql.SQLException;
 
 import database.articleDB;
+import java.sql.ResultSet;
+
 import database.casesDB;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author jorge
  */
 public class cases extends javax.swing.JPanel {
 
+    
     /**
      * Creates new form cases
      */
-    public cases() {
+    public cases(String code) {
         initComponents();
-    }// TODO add your handling code // TODO add your handling code here:here:// TODO add your handling code here:
+        
+        if(code != null){
+            this.code.setText(code);
+            this.code.setEditable(false);
+            save.setText("Editar");
+            titleLot.setVisible(false);
+            lot.setVisible(false);
+            saveLot.setVisible(false);
+            
+            try {
+                ResultSet query = casesDB.get(code);
+                while(query.next()){
+                    switch(query.getString("tipo")){
+                        case "Protector" -> type.setSelectedIndex(0);
+                        case "Clip" -> type.setSelectedIndex(1);
+                        default -> type.setSelectedIndex(2);
+                    }
+                    
+                    brand.setText(query.getString("marca"));
+                    model.setText(query.getString("modelo"));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(cases.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }// TODO add your handling code
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -184,19 +214,28 @@ public class cases extends javax.swing.JPanel {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         if(validateData()){
-            try {
-                articleDB.add(code.getText(), Integer.parseInt(lot.getValue().toString()));
-                casesDB.add(type.getSelectedItem().toString(), brand.getText(), model.getText());
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "El codigo " + code.getText() + " ya fue registrado.", "Codigo ya existente", 1);
+            if(code.isEditable()){
+                try {
+                    articleDB.add(code.getText(), Integer.parseInt(lot.getValue().toString()));
+                    casesDB.add(type.getSelectedItem().toString(), brand.getText(), model.getText());
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "El codigo " + code.getText() + " ya fue registrado.", "Codigo ya existente", 1);
+                }
+
+                code.setText("");
+                model.setText("");
+                if(!saveLot.isSelected()){
+                    lot.setValue(1);
+                }
+                code.requestFocusInWindow();            
+            }else{
+                try {
+                    casesDB.update(code.getText(), type.getSelectedItem().toString(), brand.getText(), model.getText());
+                } catch (SQLException ex) {
+                    Logger.getLogger(cases.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                menu.changeContent(new inventory(), null);
             }
-            
-            code.setText("");
-            model.setText("");
-            if(!saveLot.isSelected()){
-                lot.setValue(1);
-            }
-            code.requestFocusInWindow();            
         }else{
             JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
         }

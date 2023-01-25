@@ -21,7 +21,7 @@ public class inventory extends javax.swing.JPanel {
     public inventory() {
         initComponents();
         try {
-            fillCaseTable(casesDB.get());
+            fillCaseTable(casesDB.get(null));
             fillMicaTable(micaDB.get());
             fillPropTable(propDB.get());
             fillPhoneTable(phoneDB.get());
@@ -365,7 +365,13 @@ public class inventory extends javax.swing.JPanel {
     }//GEN-LAST:event_searchByItemStateChanged
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
-        
+        try{
+            switch(tabbedPane.getSelectedIndex()){
+                case 0 -> menu.changeContent(new cases(caseTable.getModel().getValueAt(caseTable.getSelectedRow(), 0).toString()), null);
+            }
+        }catch(ArrayIndexOutOfBoundsException e){
+            JOptionPane.showMessageDialog(null, "Selecciona un articulo","Error",0);
+        }
     }//GEN-LAST:event_editActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
@@ -398,7 +404,7 @@ public class inventory extends javax.swing.JPanel {
                 fillTablesByIndex();   
             }
         }catch(ArrayIndexOutOfBoundsException e){
-            JOptionPane.showMessageDialog(null, "Selecciona un articulo","Aviso",1);
+            JOptionPane.showMessageDialog(null, "Selecciona un articulo","Error",0);
         }catch (SQLException ex) {
             Logger.getLogger(inventory.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -433,7 +439,7 @@ public class inventory extends javax.swing.JPanel {
     public void fillTablesByIndex(){
         try{
             switch(tabbedPane.getSelectedIndex()){
-                case 0 -> fillCaseTable(casesDB.get());
+                case 0 -> fillCaseTable(casesDB.get(null));
                 case 1 -> fillMicaTable(micaDB.get());
                 case 2 -> fillPropTable(propDB.get());
                 default -> fillPhoneTable(phoneDB.get());

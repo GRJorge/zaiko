@@ -17,9 +17,20 @@ public class casesDB {
         stmt = con.createStatement();
         stmt.executeUpdate("INSERT INTO protector VALUES(NULL,'" + type + "','" + brand + "','" + model + "',(SELECT MAX(id) FROM articulo))");
     }
-    public static ResultSet get() throws SQLException{
+    public static void update(String code, String type, String brand, String model) throws SQLException{
         stmt = con.createStatement();
-        return stmt.executeQuery("SELECT codigo, tipo, marca, modelo, cantidad FROM protector INNER JOIN articulo WHERE articuloFK=articulo.id ORDER BY articulo.id DESC");
+        stmt.executeUpdate("UPDATE protector SET tipo='" + type + "', marca='" + brand + "', modelo='" + model + "' WHERE articuloFK=(SELECT id FROM articulo WHERE codigo='" + code + "')");
+    }
+    
+    public static ResultSet get(String code) throws SQLException{
+        stmt = con.createStatement();
+        ResultSet query;
+        if(code == null){
+            query = stmt.executeQuery("SELECT codigo, tipo, marca, modelo, cantidad FROM protector INNER JOIN articulo WHERE articuloFK=articulo.id ORDER BY articulo.id DESC");
+        }else{
+            query = stmt.executeQuery("SELECT tipo, marca, modelo, cantidad FROM protector INNER JOIN articulo WHERE articuloFK=articulo.id AND codigo='" + code + "'");
+        }
+        return query;
     }
     public static ResultSet searchBy(String by, String searchText) throws SQLException{
         stmt = con.createStatement();
