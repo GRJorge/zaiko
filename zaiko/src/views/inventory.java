@@ -370,29 +370,33 @@ public class inventory extends javax.swing.JPanel {
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         try{
-            String code;
-            String table;
+            int confirmation = JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas eliminar este producto?", "Aviso", JOptionPane.YES_NO_OPTION,1);
+            
+            if(confirmation == 0){
+                String code;
+                String table;
 
-            switch(tabbedPane.getSelectedIndex()){
-                case 0 -> {
-                    code = caseTable.getModel().getValueAt(caseTable.getSelectedRow(), 0).toString();
-                    table = "protector";
+                switch(tabbedPane.getSelectedIndex()){
+                    case 0 -> {
+                        code = caseTable.getModel().getValueAt(caseTable.getSelectedRow(), 0).toString();
+                        table = "protector";
+                    }
+                    case 1 -> {
+                        code = micaTable.getModel().getValueAt(micaTable.getSelectedRow(), 0).toString();
+                        table = "mica";
+                    }
+                    case 2 -> {
+                        code = propTable.getModel().getValueAt(propTable.getSelectedRow(), 0).toString();
+                        table = "accesorio";
+                    }
+                    default -> {
+                        code = phoneTable.getModel().getValueAt(phoneTable.getSelectedRow(), 0).toString();
+                        table = "telefono";
+                    }
                 }
-                case 1 -> {
-                    code = micaTable.getModel().getValueAt(micaTable.getSelectedRow(), 0).toString();
-                    table = "mica";
-                }
-                case 2 -> {
-                    code = propTable.getModel().getValueAt(propTable.getSelectedRow(), 0).toString();
-                    table = "accesorio";
-                }
-                default -> {
-                    code = phoneTable.getModel().getValueAt(phoneTable.getSelectedRow(), 0).toString();
-                    table = "telefono";
-                }
+                articleDB.delete(code, table);
+                fillTablesByIndex();   
             }
-            articleDB.delete(code, table);
-            fillTablesByIndex();
         }catch(ArrayIndexOutOfBoundsException e){
             JOptionPane.showMessageDialog(null, "Selecciona un articulo","Aviso",1);
         }catch (SQLException ex) {
