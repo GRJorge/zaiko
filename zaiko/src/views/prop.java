@@ -2,6 +2,9 @@ package views;
 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import database.articleDB;
 import database.propDB;
@@ -14,8 +17,27 @@ public class prop extends javax.swing.JPanel {
     /**
      * Creates new form prop
      */
-    public prop() {
+    public prop(String code) {
         initComponents();
+        
+        if(code != null){
+            this.code.setText(code);
+            this.code.setEditable(false);
+            save.setText("Editar");
+            titleLot.setVisible(false);
+            lot.setVisible(false);
+            saveLot.setVisible(false);
+            
+            try {
+                ResultSet query = propDB.get(code);
+                while(query.next()){
+                    brand.setText(query.getString("marca"));
+                    description.setText(query.getString("descripcion"));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(cases.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**
@@ -168,19 +190,28 @@ public class prop extends javax.swing.JPanel {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         if(validateData()){
-            try {
-                articleDB.add(code.getText(), Integer.parseInt(lot.getValue().toString()));
-                propDB.add(brand.getText(), description.getText());
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "El codigo " + code.getText() + " ya fue registrado.", "Codigo ya existente", 1);
+            if(code.isEditable()){
+                try {
+                    articleDB.add(code.getText(), Integer.parseInt(lot.getValue().toString()));
+                    propDB.add(brand.getText(), description.getText());
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "El codigo " + code.getText() + " ya fue registrado.", "Codigo ya existente", 1);
+                }
+
+                code.setText("");
+                description.setText("");
+                if(!saveLot.isSelected()){
+                    lot.setValue(1);
+                }
+                code.requestFocusInWindow();            
+            }else{
+                try {
+                    propDB.update(code.getText(), brand.getText(), description.getText());
+                } catch (SQLException ex) {
+                    Logger.getLogger(prop.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                menu.changeContent(new inventory(), null);
             }
-            
-            code.setText("");
-            description.setText("");
-            if(!saveLot.isSelected()){
-                lot.setValue(1);
-            }
-            code.requestFocusInWindow();            
         }else{
             JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
         }

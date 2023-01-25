@@ -261,7 +261,7 @@ public class menu extends javax.swing.JFrame {
 
     private void propsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_propsMousePressed
         hideAddPanel(false);
-        prop w = new prop();
+        prop w = new prop(null);
         changeContent(w,w.code);
     }//GEN-LAST:event_propsMousePressed
 
