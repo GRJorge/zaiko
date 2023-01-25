@@ -115,7 +115,7 @@
           <Font name="Roboto" size="18" style="0"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Agregar nuevo protector"/>
+        <Property name="text" type="java.lang.String" value="Agregar protector"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="titleType">
@@ -134,6 +134,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="typeKeyPressed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -145,6 +148,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="brand">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="brandKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="cleanBrand">
       <Properties>
@@ -169,6 +175,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="model">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="modelKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="titleLot">
       <Properties>

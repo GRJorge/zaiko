@@ -145,6 +145,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="brand">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="brandKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="cleanBrand">
       <Properties>
@@ -169,6 +172,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="model">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="modelKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="titleCapacity">
       <Properties>
@@ -191,6 +197,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="capacityKeyPressed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

@@ -78,6 +78,11 @@ public class changeInventory extends javax.swing.JPanel {
                 methodItemStateChanged(evt);
             }
         });
+        method.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                methodKeyPressed(evt);
+            }
+        });
 
         actualLotTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         actualLotTitle.setText("Cantidad actual:");
@@ -255,6 +260,12 @@ public class changeInventory extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_codeKeyPressed
+
+    private void methodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_methodKeyPressed
+        if(evt.getKeyCode() == 10){
+            newLot.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_methodKeyPressed
 
     private void hideFinalLot(boolean visible){
         finalLotTitle.setVisible(visible);

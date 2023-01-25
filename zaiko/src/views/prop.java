@@ -5,6 +5,9 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JSpinner;
 
 import database.articleDB;
 import database.propDB;
@@ -20,10 +23,24 @@ public class prop extends javax.swing.JPanel {
     public prop(String code) {
         initComponents();
         
+        ((JSpinner.DefaultEditor)lot.getEditor()).getTextField().addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {}
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == 10){
+                    save.requestFocusInWindow();
+                }
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+        
         if(code != null){
             this.code.setText(code);
             this.code.setEditable(false);
             save.setText("Editar");
+            title.setText("Editar accesorio");
             titleLot.setVisible(false);
             lot.setVisible(false);
             saveLot.setVisible(false);
@@ -90,8 +107,20 @@ public class prop extends javax.swing.JPanel {
         titleBrand.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleBrand.setText("Marca:");
 
+        brand.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                brandKeyPressed(evt);
+            }
+        });
+
         titleDescription.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleDescription.setText("Descripcion:");
+
+        description.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                descriptionKeyPressed(evt);
+            }
+        });
 
         titleLot.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleLot.setText("Cantidad:");
@@ -183,7 +212,7 @@ public class prop extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codeKeyPressed
-        if(evt.getKeyCode() == 10){
+        if(evt.getKeyCode() == 10 && !code.getText().isBlank()){
             brand.requestFocusInWindow();
         }
     }//GEN-LAST:event_codeKeyPressed
@@ -225,6 +254,22 @@ public class prop extends javax.swing.JPanel {
         brand.setText("");
         brand.requestFocusInWindow();
     }//GEN-LAST:event_cleanBrandMousePressed
+
+    private void brandKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_brandKeyPressed
+        if(evt.getKeyCode() == 10 && !brand.getText().isBlank()){
+            description.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_brandKeyPressed
+
+    private void descriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descriptionKeyPressed
+        if(evt.getKeyCode() == 10 && !description.getText().isBlank()){
+            if(lot.isVisible()){
+                lot.requestFocusInWindow();
+            }else{
+                save.requestFocusInWindow();
+            }
+        }
+    }//GEN-LAST:event_descriptionKeyPressed
     
     private boolean validateData(){
         boolean ok;

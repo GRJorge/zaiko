@@ -5,6 +5,9 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JSpinner;
 
 import database.articleDB;
 import database.micaDB;
@@ -21,10 +24,24 @@ public class mica extends javax.swing.JPanel {
     public mica(String code) {
         initComponents();
         
+        ((JSpinner.DefaultEditor)lot.getEditor()).getTextField().addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {}
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == 10){
+                    save.requestFocusInWindow();
+                }
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+        
         if(code != null){
             this.code.setText(code);
             this.code.setEditable(false);
             save.setText("Editar");
+            title.setText("Editar mica");
             titleLot.setVisible(false);
             lot.setVisible(false);
             saveLot.setVisible(false);
@@ -85,9 +102,20 @@ public class mica extends javax.swing.JPanel {
         titleType.setText("Tipo:");
 
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Completa", "Privacidad", "Ceramica" }));
+        type.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                typeKeyPressed(evt);
+            }
+        });
 
         titleBrand.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleBrand.setText("Marca:");
+
+        brand.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                brandKeyPressed(evt);
+            }
+        });
 
         cleanBrand.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         cleanBrand.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -102,6 +130,12 @@ public class mica extends javax.swing.JPanel {
 
         titleModel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleModel.setText("Modelo:");
+
+        model.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                modelKeyPressed(evt);
+            }
+        });
 
         titleLot.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleLot.setText("Cantidad:");
@@ -240,10 +274,32 @@ public class mica extends javax.swing.JPanel {
     }//GEN-LAST:event_cleanBrandMousePressed
 
     private void codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codeKeyPressed
-        if(evt.getKeyCode() == 10){
+        if(evt.getKeyCode() == 10 && !code.getText().isBlank()){
             type.requestFocusInWindow();
         }
     }//GEN-LAST:event_codeKeyPressed
+
+    private void typeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_typeKeyPressed
+        if(evt.getKeyCode() == 10){
+            brand.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_typeKeyPressed
+
+    private void brandKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_brandKeyPressed
+        if(evt.getKeyCode() == 10 && !brand.getText().isBlank()){
+            model.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_brandKeyPressed
+
+    private void modelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_modelKeyPressed
+        if(evt.getKeyCode() == 10 && !model.getText().isBlank()){
+            if(lot.isVisible()){
+                lot.requestFocusInWindow();
+            }else{
+                save.requestFocusInWindow();
+            }
+        }
+    }//GEN-LAST:event_modelKeyPressed
     
     private boolean validateData(){
         boolean ok;

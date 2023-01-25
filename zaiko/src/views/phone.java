@@ -5,6 +5,9 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JSpinner;
 
 import database.articleDB;
 import database.phoneDB;
@@ -19,10 +22,25 @@ public class phone extends javax.swing.JPanel {
      */
     public phone(String code) {
         initComponents();
+        
+        ((JSpinner.DefaultEditor)lot.getEditor()).getTextField().addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {}
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == 10){
+                    save.requestFocusInWindow();
+                }
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+        
         if(code != null){
             this.code.setText(code);
             this.code.setEditable(false);
             save.setText("Editar");
+            title.setText("Editar telefono");
             titleLot.setVisible(false);
             lot.setVisible(false);
             saveLot.setVisible(false);
@@ -85,6 +103,12 @@ public class phone extends javax.swing.JPanel {
         titleBrand.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleBrand.setText("Marca:");
 
+        brand.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                brandKeyPressed(evt);
+            }
+        });
+
         cleanBrand.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         cleanBrand.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cleanBrand.setText("x");
@@ -99,10 +123,21 @@ public class phone extends javax.swing.JPanel {
         titleModel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleModel.setText("Modelo:");
 
+        model.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                modelKeyPressed(evt);
+            }
+        });
+
         titleCapacity.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleCapacity.setText("Capacidad:");
 
         capacity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8GB", "16GB", "32GB", "64GB", "128GB", "256GB", "512GB", "1TB" }));
+        capacity.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                capacityKeyPressed(evt);
+            }
+        });
 
         titleLot.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titleLot.setText("Cantidad:");
@@ -206,7 +241,7 @@ public class phone extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codeKeyPressed
-        if(evt.getKeyCode() == 10){
+        if(evt.getKeyCode() == 10 && !code.getText().isBlank()){
             brand.requestFocusInWindow();
         }
     }//GEN-LAST:event_codeKeyPressed
@@ -248,7 +283,28 @@ public class phone extends javax.swing.JPanel {
         brand.setText("");
         brand.requestFocusInWindow();
     }//GEN-LAST:event_cleanBrandMousePressed
-    
+
+    private void brandKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_brandKeyPressed
+        if(evt.getKeyCode() == 10 && !brand.getText().isBlank()){
+            model.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_brandKeyPressed
+
+    private void modelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_modelKeyPressed
+        if(evt.getKeyCode() == 10 && !model.getText().isBlank()){
+            capacity.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_modelKeyPressed
+
+    private void capacityKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_capacityKeyPressed
+        if(evt.getKeyCode() == 10){
+            if(lot.isVisible()){
+                lot.requestFocusInWindow();
+            }else{
+                save.requestFocusInWindow();
+            }
+        }
+    }//GEN-LAST:event_capacityKeyPressed
         
     private boolean validateData(){
         boolean ok;
