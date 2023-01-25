@@ -255,7 +255,7 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_casesMousePressed
 
     private void phoneMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_phoneMousePressed
-        phone w = new phone();
+        phone w = new phone(null);
         changeContent(w,w.code);
     }//GEN-LAST:event_phoneMousePressed
 

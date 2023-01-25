@@ -24,7 +24,7 @@ public class inventory extends javax.swing.JPanel {
             fillCaseTable(casesDB.get(null));
             fillMicaTable(micaDB.get(null));
             fillPropTable(propDB.get(null));
-            fillPhoneTable(phoneDB.get());
+            fillPhoneTable(phoneDB.get(null));
         } catch (SQLException ex) {
             Logger.getLogger(inventory.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -370,6 +370,7 @@ public class inventory extends javax.swing.JPanel {
                 case 0 -> menu.changeContent(new cases(caseTable.getModel().getValueAt(caseTable.getSelectedRow(), 0).toString()), null);
                 case 1 -> menu.changeContent(new mica(micaTable.getModel().getValueAt(micaTable.getSelectedRow(), 0).toString()), null);
                 case 2 -> menu.changeContent(new prop(propTable.getModel().getValueAt(propTable.getSelectedRow(), 0).toString()), null);
+                default -> menu.changeContent(new phone(phoneTable.getModel().getValueAt(phoneTable.getSelectedRow(), 0).toString()), null);
             }
         }catch(ArrayIndexOutOfBoundsException e){
             JOptionPane.showMessageDialog(null, "Selecciona un articulo","Error",0);
@@ -444,7 +445,7 @@ public class inventory extends javax.swing.JPanel {
                 case 0 -> fillCaseTable(casesDB.get(null));
                 case 1 -> fillMicaTable(micaDB.get(null));
                 case 2 -> fillPropTable(propDB.get(null));
-                default -> fillPhoneTable(phoneDB.get());
+                default -> fillPhoneTable(phoneDB.get(null));
             }
         } catch (SQLException ex) {
             Logger.getLogger(inventory.class.getName()).log(Level.SEVERE, null, ex);

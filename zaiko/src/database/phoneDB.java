@@ -17,9 +17,20 @@ public class phoneDB {
         stmt = con.createStatement();
         stmt.executeUpdate("INSERT INTO telefono VALUES(NULL,'" + brand + "','" + model + "','" + capacity + "',(SELECT MAX(id) FROM articulo))");
     }
-    public static ResultSet get() throws SQLException{
+    public static void update(String code, String brand, String model, String capacity) throws SQLException{
         stmt = con.createStatement();
-        return stmt.executeQuery("SELECT codigo, marca, modelo, capacidad, cantidad FROM telefono INNER JOIN articulo WHERE articuloFK=articulo.id ORDER BY articulo.id DESC");
+        stmt.executeUpdate("UPDATE telefono SET marca='" + brand + "', modelo='" + model + "', capacidad='" + capacity + "' WHERE articuloFK=(SELECT id FROM articulo WHERE codigo='" + code + "')");
+    }
+    
+    public static ResultSet get(String code) throws SQLException{
+        stmt = con.createStatement();
+        ResultSet query;
+        if(code == null){
+            query = stmt.executeQuery("SELECT codigo, marca, modelo, capacidad, cantidad FROM telefono INNER JOIN articulo WHERE articuloFK=articulo.id ORDER BY articulo.id DESC");
+        }else{
+            query = stmt.executeQuery("SELECT marca, modelo, capacidad, cantidad FROM telefono INNER JOIN articulo WHERE articuloFK=articulo.id AND codigo='" + code + "'");
+        }
+        return query;
     }
     public static ResultSet searchBy(String by, String searchText) throws SQLException{
         stmt = con.createStatement();
